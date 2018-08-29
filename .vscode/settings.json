@@ -1,0 +1,7 @@
+//Autocomplete for jsx/html 
+{
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+      },
+      "emmet.triggerExpansionOnTab": true
+}

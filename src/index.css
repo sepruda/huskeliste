@@ -1,0 +1,19 @@
+
+body {
+  font-family: sans-serif;
+}
+
+
+ul {
+  font-size: 1.3rem;
+}
+
+.jumbotron {
+  margin: 30px auto;
+  max-width: 90%;
+}
+
+h1 {
+  padding: 10px;
+}
+
