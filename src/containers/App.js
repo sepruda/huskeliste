@@ -3,7 +3,6 @@ import NewTaskInput from '../components/NewTaskInput/NewTaskInput';
 import Header from '../components/Header/Header';
 import TaskList from '../components/TaskList/TaskList';
 import './App.css';
-import SimpleStorage from 'react-simple-storage';
 
 class App extends Component {
   constructor(props){
@@ -14,17 +13,43 @@ class App extends Component {
     }
   }  
 
-  updateList = (taskText) => {
-    this.setState(prevState => ({
-      todo: [...prevState.todo, {opgavetekst: taskText, opgaveid: Date.now()}]
-    }))
+  componentDidMount() {
+    this.getStateFromLocalStorage();
+  }
 
+  getStateFromLocalStorage = () => {
+    if (localStorage.hasOwnProperty('todo')) {
+      let savedTodo = localStorage.getItem('todo');
+      try {
+        savedTodo = JSON.parse(savedTodo);
+        this.setState({ todo: savedTodo});
+      } catch (event) {
+        this.setState({ todo: [] });
+      }
+    }
+  }
+
+  updateList = (taskText) => {
+    if (taskText) {
+
+      //Add new task to list and save in const newTodo
+      const newTodo = [...this.state.todo, {opgavetekst: taskText, opgaveid: Date.now()}];
+
+      //Update state
+      this.setState({ todo: newTodo });
+
+      //Update localStorage
+      localStorage.setItem("todo", JSON.stringify(newTodo));
+    }
   }
 
   deleteTask = (id) => {
-    this.setState(prevState => ({
-      todo: prevState.todo.filter(task => task.opgaveid !== id)
-    }))
+    
+    const newTodo = this.state.todo.filter(task => task.opgaveid !== id);
+    
+    this.setState({ todo: newTodo });
+
+    localStorage.setItem("todo", JSON.stringify(newTodo))
   }
   
   render() {
@@ -33,7 +58,6 @@ class App extends Component {
       
       <div className='container'>
         <div className="App jumbotron">
-            <SimpleStorage parent={this} prefix={ 'Huskeliste'}/>
             <Header />
             <NewTaskInput opdaterListe={this.updateList} />
             <TaskList 
