@@ -5,20 +5,12 @@ import TaskList from '../components/TaskList/TaskList';
 import './App.css';
 import SimpleStorage from 'react-simple-storage';
 
-const LISTE = [
-  {opgavetekst: "Fodre grisene", opgaveid: 1},
-  {opgavetekst: "Pudse briller", opgaveid: 2},
-  {opgavetekst: "Købe mælk", opgaveid: 3},
-  {opgavetekst: "Spise flere grøntsager", opgaveid: 4},
-  {opgavetekst: "Fodre hunden", opgaveid: 5}
-];
-
 class App extends Component {
   constructor(props){
     super(props)
 
     this.state = {
-      todo: [...LISTE]
+      todo: []
     }
   }  
 

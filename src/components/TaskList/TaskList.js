@@ -6,6 +6,7 @@ class TaskList extends Component {
     
     render () {
         return (
+            
             <ul className='list-group'>
                 {this.props.opgaveliste.map((opgave, index) => (
                     <Task 
