@@ -1,26 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Task from '../Task/Task';
-import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
+import {SortableContainer} from 'react-sortable-hoc';
 
 
-class TaskList extends Component {
-    
-    render () {
+const TaskList = SortableContainer(({opgaveliste, fjernOpgave})=> {
+        
         return (
-            
             <ul className='list-group'>
-                {this.props.opgaveliste.map((opgave, index) => (
+                {opgaveliste.map((opgave, index) => (
                     <Task 
                         key={opgave.opgaveid}
                         tekst={opgave.opgavetekst}
+                        index={index}
                         opgaveid={opgave.opgaveid}
-                        deleteTask={this.props.fjernOpgave}
+                        deleteTask={fjernOpgave}
                     />
                     ))
                 }   
             </ul>
         )
-    }
-}
+});
 
 export default TaskList;

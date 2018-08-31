@@ -3,6 +3,7 @@ import NewTaskInput from '../components/NewTaskInput/NewTaskInput';
 import Header from '../components/Header/Header';
 import TaskList from '../components/TaskList/TaskList';
 import './App.css';
+import { arrayMove } from 'react-sortable-hoc';
 
 class App extends Component {
   constructor(props){
@@ -12,6 +13,11 @@ class App extends Component {
       todo: [],
       taskCount: 0
     }
+  }
+  onSortEnd = ({oldIndex, newIndex}) => {
+    this.setState({
+      todo: arrayMove(this.state.todo, oldIndex, newIndex)
+    });
   }
 
   componentDidMount() {
@@ -68,6 +74,7 @@ class App extends Component {
             <TaskList 
               opgaveliste={this.state.todo}
               fjernOpgave={this.deleteTask}
+              onSortEnd={this.onSortEnd}
             />
           </div>
       </div>
