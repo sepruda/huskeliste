@@ -9,20 +9,24 @@ class App extends Component {
     super(props)
 
     this.state = {
-      todo: []
+      todo: [],
+      taskCount: 0
     }
-  }  
+  }
 
   componentDidMount() {
     this.getStateFromLocalStorage();
+    this.setState((prevState) => ({ taskCount: prevState.todo.length }));
   }
+  
 
   getStateFromLocalStorage = () => {
     if (localStorage.hasOwnProperty('todo')) {
       let savedTodo = localStorage.getItem('todo');
       try {
         savedTodo = JSON.parse(savedTodo);
-        this.setState({ todo: savedTodo});
+        this.setState({ todo: savedTodo });
+
       } catch (event) {
         this.setState({ todo: [] });
       }
@@ -37,6 +41,7 @@ class App extends Component {
 
       //Update state
       this.setState({ todo: newTodo });
+      this.setState((prevState) => ({ taskCount: prevState.todo.length }));
 
       //Update localStorage
       localStorage.setItem("todo", JSON.stringify(newTodo));
@@ -48,17 +53,17 @@ class App extends Component {
     const newTodo = this.state.todo.filter(task => task.opgaveid !== id);
     
     this.setState({ todo: newTodo });
+    this.setState((prevState) => ({ taskCount: prevState.todo.length }));
 
     localStorage.setItem("todo", JSON.stringify(newTodo))
   }
   
   render() {
-
     return (
       
       <div className='container'>
         <div className="App jumbotron">
-            <Header />
+            <Header taskCounter={this.state.taskCount}/>
             <NewTaskInput opdaterListe={this.updateList} />
             <TaskList 
               opgaveliste={this.state.todo}

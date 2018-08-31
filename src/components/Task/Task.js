@@ -1,4 +1,5 @@
 import React from 'react';
+import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 
 const Task = (props) => (
             <li className='list-group-item'>
@@ -8,6 +9,6 @@ const Task = (props) => (
                     className='btn btn-danger float-right'
                 >slet</button>
             </li>
-        )
+        );
 
 export default Task;

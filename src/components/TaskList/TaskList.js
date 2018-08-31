@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Task from '../Task/Task';
+import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 
 
 class TaskList extends Component {
