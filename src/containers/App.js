@@ -25,6 +25,17 @@ class App extends PureComponent {
     this.getStateFromLocalStorage();
   }
   
+  taskFinished = (id) => {
+    const newTodo = this.state.todo.map((task) => {
+      if (task.opgaveid === id) {
+        task.completed = !task.completed
+      }
+      return task;
+    });
+    this.setState({todo: [...newTodo]});
+
+    localStorage.setItem("todo", JSON.stringify(newTodo));
+  }
 
   getStateFromLocalStorage = () => {
     if (localStorage.hasOwnProperty('todo')) {
@@ -43,7 +54,11 @@ class App extends PureComponent {
     if (taskText) {
 
       //Add new task to list and save in const newTodo
-      const newTodo = [...this.state.todo, {opgavetekst: taskText, opgaveid: Date.now()}];
+      const newTodo = [...this.state.todo, {
+        opgavetekst: taskText, 
+        opgaveid: Date.now(),
+        completed: false
+      }];
 
       //Update state
       this.setState({ todo: newTodo });
@@ -73,6 +88,8 @@ class App extends PureComponent {
               opgaveliste={this.state.todo}
               fjernOpgave={this.deleteTask}
               onSortEnd={this.onSortEnd}
+              taskFinished={this.taskFinished}
+              pressDelay={200}
             />
           </div>
       </div>
