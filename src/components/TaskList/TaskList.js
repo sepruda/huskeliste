@@ -3,22 +3,21 @@ import Task from '../Task/Task';
 import {SortableContainer} from 'react-sortable-hoc';
 
 
-const TaskList = SortableContainer(({opgaveliste, fjernOpgave})=> {
+const TaskList = SortableContainer(props => {
         
         return (
-            <ul className='list-group'>
-                {opgaveliste.map((opgave, index) => (
+            <ul className='list-group rounded'>
+                {props.opgaveliste.map((opgave, index) => (
                     <Task 
                         key={opgave.opgaveid}
                         tekst={opgave.opgavetekst}
                         index={index}
                         opgaveid={opgave.opgaveid}
-                        deleteTask={fjernOpgave}
+                        deleteTask={props.fjernOpgave}
                     />
-                    ))
-                }   
+                ))}   
             </ul>
-        )
+        );
 });
 
 export default TaskList;

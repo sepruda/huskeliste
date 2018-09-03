@@ -1,15 +1,15 @@
 import React from 'react';
 import {SortableElement} from 'react-sortable-hoc';
 
-const Task = SortableElement(({tekst, deleteTask, opgaveid }) => { 
-        return (
+const Task = SortableElement(props =>  
+        (
             <li className='list-group-item'>
-                {tekst}       
+                <span>{props.tekst}</span>
                 <button
-                    onClick={() => {deleteTask(opgaveid)}}
+                    onClick={() => {props.deleteTask(props.opgaveid)}}
                     className='btn btn-danger float-right'
                 >slet</button>
             </li>
-        )});
+        ));
 
 export default Task;

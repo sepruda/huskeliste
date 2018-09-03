@@ -14,9 +14,11 @@ class App extends PureComponent {
     }
   }
   onSortEnd = ({oldIndex, newIndex}) => {
-    this.setState({
-      todo: arrayMove(this.state.todo, oldIndex, newIndex)
-    });
+    const newTodo = arrayMove(this.state.todo, oldIndex, newIndex)
+    
+    this.setState({todo: [...newTodo]});
+
+    localStorage.setItem("todo", JSON.stringify(newTodo));
   }
 
   componentDidMount() {
