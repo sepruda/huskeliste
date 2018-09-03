@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import NewTaskInput from '../components/NewTaskInput/NewTaskInput';
 import Header from '../components/Header/Header';
 import TaskList from '../components/TaskList/TaskList';
 import './App.css';
 import { arrayMove } from 'react-sortable-hoc';
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props){
     super(props)
 
     this.state = {
       todo: [],
-      taskCount: 0
     }
   }
   onSortEnd = ({oldIndex, newIndex}) => {
@@ -22,7 +21,6 @@ class App extends Component {
 
   componentDidMount() {
     this.getStateFromLocalStorage();
-    this.setState((prevState) => ({ taskCount: prevState.todo.length }));
   }
   
 
@@ -47,7 +45,6 @@ class App extends Component {
 
       //Update state
       this.setState({ todo: newTodo });
-      this.setState((prevState) => ({ taskCount: prevState.todo.length }));
 
       //Update localStorage
       localStorage.setItem("todo", JSON.stringify(newTodo));
@@ -59,7 +56,6 @@ class App extends Component {
     const newTodo = this.state.todo.filter(task => task.opgaveid !== id);
     
     this.setState({ todo: newTodo });
-    this.setState((prevState) => ({ taskCount: prevState.todo.length }));
 
     localStorage.setItem("todo", JSON.stringify(newTodo))
   }
@@ -69,7 +65,7 @@ class App extends Component {
       
       <div className='container'>
         <div className="App jumbotron">
-            <Header taskCounter={this.state.taskCount}/>
+            <Header taskCounter={this.state.todo.length}/>
             <NewTaskInput opdaterListe={this.updateList} />
             <TaskList 
               opgaveliste={this.state.todo}
